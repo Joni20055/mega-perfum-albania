@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="sq">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>MEGA PERFUM ALBANIA — parfume origjinalë</title>
+  <meta name="description" content="MEGA PERFUM ALBANIA. Parfume origjinalë për burra, të importuar nga BE. 100 ml, tani 5,000 lek. Dërgesë 1–3 ditë në Kosovë dhe Shqipëri.">
+  <meta name="theme-color" content="#111111">
+  <link rel="icon" href="/favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,500;0,600;1,500&family=Outfit:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/css/style.css?v=6">
+</head>
+<body>
+  <a class="skip" href="#produkte">Shko te produktet</a>
+  <header class="header">
+    <div class="wrap bar">
+      <a class="logo" href="#produkte"><span>MEGA PERFUM</span><small>ALBANIA</small></a>
+      <nav>
+        <a href="#produkte">Produktet</a>
+        <a href="#si-porositet">Si porositet</a>
+        <a href="#kontakt">Kontakt</a>
+        <button type="button" id="open-cart" aria-label="Shporta">
+          <svg class="cart-icon" viewBox="0 0 24 24" aria-hidden="true">
+            <path d="M6.2 6.5h14.3l-1.4 8.2H7.4L6.2 6.5z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/>
+            <path d="M6.2 6.5 5.1 3.2H2.2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/>
+            <circle cx="9.2" cy="19.4" r="1.35" fill="currentColor"/>
+            <circle cx="17.2" cy="19.4" r="1.35" fill="currentColor"/>
+          </svg>
+          <span class="count" id="cart-count"></span>
+        </button>
+      </nav>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero">
+      <div class="wrap hero-grid">
+        <div>
+          <p class="eyebrow">MEGA PERFUM ALBANIA</p>
+          <h1>Parfume origjinalë.</h1>
+          <p class="lede">Të importuar nga Bashkimi Evropian. 100 ml për burra.</p>
+          <a class="btn gold" href="#produkte">Shiko parfumet</a>
+        </div>
+        <div class="stage" id="stage">
+          <a class="stage-frame" href="#produkte">
+            <img class="is-on" src="/images/valentino.jpg?v=2" alt="Valentino Uomo Born in Roma Intense">
+            <img src="/images/ysl-y.jpg?v=2" alt="Yves Saint Laurent Y">
+            <img src="/images/sauvage.jpg?v=2" alt="Dior Sauvage Elixir">
+            <img src="/images/myslf.jpg?v=2" alt="Yves Saint Laurent MYSLF">
+          </a>
+          <div class="stage-copy">
+            <p class="stage-kicker" id="stage-kicker">Valentino</p>
+            <p class="stage-name" id="stage-name">Born in Roma Intense</p>
+            <p class="stage-line" id="stage-line">Vanilja që mbetet në mbrëmje.</p>
+          </div>
+          <div class="stage-nav" role="tablist" aria-label="Parfumet">
+            <button type="button" aria-selected="true" aria-label="Valentino"></button>
+            <button type="button" aria-selected="false" aria-label="YSL Y"></button>
+            <button type="button" aria-selected="false" aria-label="Sauvage Elixir"></button>
+            <button type="button" aria-selected="false" aria-label="MYSLF"></button>
+          </div>
+        </div>
+      </div>
+      <div class="wrap">
+        <ul class="facts">
+          <li><strong>Origjinalë</strong><span>Jo kopje</span></li>
+          <li><strong>Nga BE</strong><span>Import evropian</span></li>
+          <li><strong>1–3 ditë</strong><span>Kosovë dhe Shqipëri</span></li>
+          <li><strong>Transport</strong><span>5 euro · 300 lek</span></li>
+        </ul>
+      </div>
+    </section>
+
+    <section class="section steps-section" id="si-porositet">
+      <div class="wrap">
+        <p class="eyebrow">Si porositet</p>
+        <ol class="steps">
+          <li><b>01</b><strong>Shporta</strong><span>Shto parfumin</span></li>
+          <li><b>02</b><strong>Bli tani</strong><span>Nga shporta ose produkti</span></li>
+          <li><b>03</b><strong>Pagesa</strong><span>PayPal ose Cash</span></li>
+          <li><b>04</b><strong>Dërgesa</strong><span>1–3 ditë, e shpejtë</span></li>
+        </ol>
+      </div>
+    </section>
+
+    <section class="section" id="produkte">
+      <div class="wrap">
+        <div class="section-head">
+          <h2>Produktet</h2>
+          <p>Origjinalë, 100 ml, të importuar nga BE. Çmimi është 5,000 lek për secilin.</p>
+        </div>
+        <div class="products" id="products" aria-live="polite">
+          <p class="loading">Po ngarkohen parfumet…</p>
+        </div>
+      </div>
+    </section>
+
+    <section class="section contact-section" id="kontakt">
+      <div class="wrap contact-grid">
+        <div>
+          <p class="eyebrow">Na kontaktoni</p>
+          <h2>Na shkruani</h2>
+          <p class="lede">Për pyetje rreth aromave, stokut ose porosive. Ju përgjigjemi shpejt.</p>
+        </div>
+        <form class="stack-form" id="contact-form" novalidate>
+          <label>Emri
+            <input name="name" autocomplete="name" maxlength="80" required>
+          </label>
+          <label>Email
+            <input name="email" type="email" autocomplete="email" maxlength="120" required>
+          </label>
+          <label>Numri i telefonit <span class="opt">(opsional)</span>
+            <input name="phone" type="tel" autocomplete="tel" maxlength="30">
+          </label>
+          <label>Mesazhi
+            <textarea name="message" rows="4" maxlength="1000" required></textarea>
+          </label>
+          <button class="btn primary" type="submit">Dërgo</button>
+          <p class="form-note" id="contact-note" role="status"></p>
+        </form>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="wrap">
+      <p>MEGA PERFUM ALBANIA</p>
+      <p>Parfume origjinalë për burra, të importuar nga Bashkimi Evropian. Dërgesa për 1–3 ditë në Kosovë dhe Shqipëri.</p>
+    </div>
+  </footer>
+
+  <div class="drawer" id="drawer">
+    <div class="drawer-panel" role="dialog" aria-modal="true" aria-labelledby="cart-title">
+      <div class="drawer-head">
+        <h2 id="cart-title">Shporta</h2>
+        <button type="button" class="icon-btn" id="close-cart" aria-label="Mbyll shportën">×</button>
+      </div>
+      <div class="drawer-items" id="cart-items"></div>
+      <div class="drawer-foot">
+        <div class="total-row"><span>Totali</span><strong id="cart-total">0 lek</strong></div>
+        <button type="button" class="btn primary" id="cart-buy">Bli tani</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="modal" id="checkout">
+    <div class="modal-card" role="dialog" aria-modal="true" aria-labelledby="checkout-title">
+      <button type="button" class="icon-btn close-abs" id="close-checkout" aria-label="Mbyll">×</button>
+      <h2 id="checkout-title">Bli tani</h2>
+      <div id="checkout-body"></div>
+    </div>
+  </div>
+
+  <div class="toast" id="toast" role="status"></div>
+  <noscript><p class="wrap">Faqja ka nevojë për JavaScript për shportën dhe porositë.</p></noscript>
+  <script src="/js/app.js?v=5"></script>
+</body>
+</html>
