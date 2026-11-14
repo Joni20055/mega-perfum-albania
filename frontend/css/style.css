@@ -362,9 +362,54 @@ nav a:hover, #open-cart:hover { color: var(--gold); }
   font-size: 0.82rem;
 }
 
-.steps-section { padding-top: 18px; padding-bottom: 10px; }
+.steps-section {
+  box-sizing: border-box;
+  min-height: calc(100svh - 96px);
+  display: flex;
+  align-items: center;
+  padding: 56px 0 72px;
+  scroll-margin-top: 96px;
+  border-top: 1px solid rgba(198, 169, 107, 0.28);
+  border-bottom: 1px solid rgba(198, 169, 107, 0.28);
+  background:
+    radial-gradient(ellipse at 12% 0%, rgba(198, 169, 107, 0.16), transparent 42%),
+    var(--ink);
+}
 
-.steps-section .eyebrow { margin-bottom: 10px; }
+.steps-layout { display: grid; gap: 36px; width: 100%; }
+
+.steps-copy { max-width: 40rem; }
+
+.steps-section h2 {
+  margin: 0 0 12px;
+  color: var(--cream);
+  font-family: "Cormorant Garamond", Georgia, serif;
+  font-size: clamp(3rem, 6vw, 5rem);
+  font-weight: 500;
+  line-height: 0.92;
+}
+
+.steps-section .lede { margin: 0; font-size: 1.08rem; }
+
+.steps-section .steps {
+  gap: 16px;
+}
+
+.steps-section .steps li {
+  min-height: 190px;
+  padding: 22px 18px 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.steps-section .steps strong { font-size: clamp(1.7rem, 2.4vw, 2.15rem); }
+
+.steps-section .steps span {
+  margin-top: 10px;
+  font-size: 0.98rem;
+  line-height: 1.35;
+}
 
 .steps b {
   display: block;
@@ -941,12 +986,20 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   .contact-grid { grid-template-columns: 0.8fr 1.2fr; align-items: start; }
 }
 
+@media (max-width: 800px) {
+  .steps-section .steps { grid-template-columns: 1fr 1fr; }
+  .steps-section .steps li { min-height: 160px; }
+}
+
 @media (max-width: 699px) {
   .photo { height: 250px; }
   .hero { padding-top: 22px; }
   .logo span { font-size: 1.35rem; letter-spacing: 0.08em; }
   .facts, .steps { gap: 6px; }
   .facts li, .steps li { padding: 8px 7px 7px; }
+  .steps-section { padding: 40px 0 48px; }
+  .steps-section .steps { gap: 12px; }
+  .steps-section .steps li { padding: 20px 16px 18px; }
   .facts strong, .steps strong { font-size: 1rem; }
   .facts span, .steps span { font-size: 0.68rem; }
 }
@@ -1071,4 +1124,5 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   .card:hover, .card:hover .photo img, .card:hover .accords li { transform: none; }
 }
 
-#produkte, #kontakt, #si-porositet { scroll-margin-top: 90px; }
+#produkte, #kontakt { scroll-margin-top: 90px; }
+#si-porositet { scroll-margin-top: 96px; }
