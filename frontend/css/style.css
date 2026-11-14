@@ -808,6 +808,62 @@ textarea { resize: vertical; }
 
 .summary s { color: rgba(41, 41, 41, 0.5); margin-right: 8px; }
 
+.summary.is-eur #due-price {
+  font-size: 1.45rem;
+  letter-spacing: 0.01em;
+}
+
+#due-price.is-price-pop { animation: price-pop 0.45s ease; }
+
+.cash-card {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  background: var(--ink);
+  color: var(--cream);
+  border: 1px solid var(--gold);
+}
+
+.cash-mark {
+  flex: 0 0 auto;
+  min-width: 52px;
+  padding: 8px 6px;
+  border: 1px solid var(--gold);
+  color: var(--gold);
+  text-align: center;
+  font-size: 0.68rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.cash-card b {
+  display: block;
+  color: var(--gold);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.cash-card span span {
+  display: block;
+  margin-top: 3px;
+  color: var(--cream);
+  font-size: 0.86rem;
+}
+
+.name-row {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 12px;
+}
+
+@media (max-width: 460px) {
+  .name-row { grid-template-columns: 1fr; }
+}
+
 .pay-label {
   margin: 0 0 8px;
   font-size: 0.72rem;
@@ -1009,7 +1065,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   html { scroll-behavior: auto; }
   .toast { transition: none; }
   .facts li, .steps li, .stage-frame img.is-on, .card::before,
-  .btn.primary::after, .btn.gold::after, .count.is-live::before { animation: none; }
+  .btn.primary::after, .btn.gold::after, .count.is-live::before,
+  #due-price.is-price-pop { animation: none; }
   .stage-frame img, .card, .photo img, .btn, .facts li, .steps li { transition: none; }
   .card:hover, .card:hover .photo img, .card:hover .accords li { transform: none; }
 }

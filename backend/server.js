@@ -173,7 +173,7 @@ app.get("/api/rate", async (req, res) => {
     const quote = await getEurQuote();
     res.json({ lekPerEur: quote.lekPerEur, updated: quote.updated });
   } catch (err) {
-    res.status(503).json({ error: "Kursi euro nuk u lexua. Provo përsëri." });
+    res.status(503).json({ error: "Çmimi në euro nuk u përgatit. Provo përsëri." });
   }
 });
 
@@ -214,12 +214,17 @@ app.post("/api/orders", async (req, res) => {
     let customer = null;
     if (paymentMethod === "cash") {
       const person = body.customer || {};
-      const name = cleanText(person.name, 80);
+      const firstName = cleanText(person.firstName, 40);
+      const lastName = cleanText(person.lastName, 40);
       const phone = cleanText(person.phone, 30);
       const email = cleanText(person.email, 120);
-      if (name.length < 2 || !letter.test(name)) {
+      if (firstName.length < 2 || !letter.test(firstName)) {
         return res.status(400).json({ error: "Shkruani emrin." });
       }
+      if (lastName.length < 2 || !letter.test(lastName)) {
+        return res.status(400).json({ error: "Shkruani mbiemrin." });
+      }
+      const name = cleanText(`${firstName} ${lastName}`, 80);
       if (!emailOk.test(email)) {
         return res.status(400).json({ error: "Shkruani një email të vlefshëm." });
       }
@@ -308,10 +313,10 @@ app.post("/api/orders", async (req, res) => {
     });
   } catch (err) {
     console.error(err);
-    const message = err && String(err.message || "").includes("Kursi")
-      ? "Kursi euro nuk u lexua. Provo përsëri."
+    const message = err && String(err.message || "").includes("euro")
+      ? "Çmimi në euro nuk u përgatit. Provo përsëri."
       : "Porosia nuk u ruajt.";
-    res.status(message.startsWith("Kursi") ? 503 : 500).json({ error: message });
+    res.status(message.startsWith("Çmimi") ? 503 : 500).json({ error: message });
   }
 });
 

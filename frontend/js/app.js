@@ -85,7 +85,7 @@ async function loadEurRate() {
   if (eurQuote) return eurQuote;
   const res = await fetch("/api/rate");
   const data = await res.json().catch(() => ({}));
-  if (!res.ok || !Number(data.lekPerEur)) throw new Error(data.error || "Kursi euro nuk u lexua.");
+  if (!res.ok || !Number(data.lekPerEur)) throw new Error(data.error || "Çmimi në euro nuk u përgatit.");
   eurQuote = data;
   return eurQuote;
 }
@@ -141,7 +141,11 @@ function cashCity(data) {
 }
 
 function validateCash(data) {
-  const base = validateCustomer(data);
+  const first = clean(data.firstName, 40);
+  const last = clean(data.lastName, 40);
+  if (first.length < 2 || !/\p{L}/u.test(first)) return "Shkruani emrin.";
+  if (last.length < 2 || !/\p{L}/u.test(last)) return "Shkruani mbiemrin.";
+  const base = validateCustomer({ ...data, name: `${first} ${last}` });
   if (base) return base;
   const country = clean(data.country, 20);
   if (!CITIES[country]) return "Zgjidhni Kosovën ose Shqipërinë.";
@@ -395,10 +399,22 @@ function renderPayPanel() {
   if (checkout.method === "cash") {
     panel.innerHTML = `
       <form class="cash-form" id="cash-form" novalidate>
-        <p class="hint">Për Kosovën çmimi kthehet në euro me kursin 1 euro = 85 lek dhe transporti 5 euro hyn në total. Për Shqipërinë transporti është 300 lek.</p>
-        <label>Emri
-          <input name="name" autocomplete="name" maxlength="80" required>
-        </label>
+        <div class="cash-card">
+          <span class="cash-mark">Cash</span>
+          <span>
+            <b>Pagesë në dorëzim</b>
+            <span>Paratë jepen kur vjen porosia.</span>
+          </span>
+        </div>
+        <p class="pay-label">Të dhënat</p>
+        <div class="name-row">
+          <label>Emri
+            <input name="firstName" autocomplete="given-name" maxlength="40" required>
+          </label>
+          <label>Mbiemri
+            <input name="lastName" autocomplete="family-name" maxlength="40" required>
+          </label>
+        </div>
         <label>Numri i telefonit
           <input name="phone" type="tel" autocomplete="tel" maxlength="30" required>
         </label>
@@ -456,11 +472,15 @@ function renderPayPanel() {
         return;
       }
       if (clean(data.country, 20) === "Kosovë" && !checkout.kosovoReady) {
-        setPayError("Kursi euro nuk u lexua. Provo përsëri.");
+        setPayError("Çmimi në euro nuk u përgatit. Provo përsëri.");
         return;
       }
+      const firstName = clean(data.firstName, 40);
+      const lastName = clean(data.lastName, 40);
       placeOrder("cash", {
-        name: data.name,
+        firstName,
+        lastName,
+        name: `${firstName} ${lastName}`,
         phone: data.phone,
         email: data.email,
         country: clean(data.country, 20),
@@ -485,14 +505,15 @@ function renderCheckout() {
   const total = items.reduce((sum, item) => sum + item.price * item.qty, 0);
   checkout.subtotal = total;
   const oldTotal = items.reduce((sum, item) => sum + item.oldPrice * item.qty, 0);
+  checkout.oldSubtotal = oldTotal;
   const rows = items.map((item) => `
     <li>
       <span>${esc(item.name)} × ${item.qty}</span>
-      <span>${money(item.price * item.qty)}</span>
+      <span data-lek="${item.price * item.qty}">${money(item.price * item.qty)}</span>
     </li>`).join("");
 
   els.checkoutBody.innerHTML = `
-    <ul class="summary">
+    <ul class="summary" id="order-summary">
       ${rows}
       <li id="ship-row" hidden>
         <span>Transporti</span>
@@ -500,15 +521,35 @@ function renderCheckout() {
       </li>
       <li class="total">
         <span>Totali</span>
-        <span><s id="old-price">${money(oldTotal)}</s> <strong id="due-price">${money(total)}</strong></span>
+        <span><s id="old-price" data-lek="${oldTotal}">${money(oldTotal)}</s> <strong id="due-price">${money(total)}</strong></span>
       </li>
     </ul>
-    <p class="hint" id="rate-note" hidden></p>
     <div id="pay-panel"></div>
     <p class="form-note err" id="pay-error"></p>`;
 
   checkout.method = "cash";
   renderPayPanel();
+}
+
+function moneyLines() {
+  return [...document.querySelectorAll("#order-summary [data-lek]")].filter((el) => el.id !== "old-price");
+}
+
+function showLekSummary(ship) {
+  const summary = document.getElementById("order-summary");
+  const oldPrice = document.getElementById("old-price");
+  if (summary) summary.classList.remove("is-eur");
+  moneyLines().forEach((el) => {
+    el.textContent = money(Number(el.dataset.lek));
+  });
+  if (oldPrice) {
+    oldPrice.hidden = false;
+    oldPrice.textContent = money(Number(oldPrice.dataset.lek));
+  }
+  const price = document.getElementById("ship-price");
+  const due = document.getElementById("due-price");
+  if (price) price.textContent = ship ? shippingText(ship) : "";
+  if (due) due.textContent = dueText(checkout.subtotal, ship);
 }
 
 async function applyShipping(country) {
@@ -517,38 +558,46 @@ async function applyShipping(country) {
   const row = document.getElementById("ship-row");
   const price = document.getElementById("ship-price");
   const due = document.getElementById("due-price");
-  const note = document.getElementById("rate-note");
   const oldPrice = document.getElementById("old-price");
   if (!row || !price || !due || !checkout) return;
   checkout.kosovoReady = false;
   row.hidden = !ship;
-  if (note) {
-    note.hidden = true;
-    note.textContent = "";
-  }
-  if (oldPrice) oldPrice.hidden = country === "Kosovë";
   if (country !== "Kosovë") {
-    price.textContent = ship ? shippingText(ship) : "";
-    due.textContent = dueText(checkout.subtotal, ship);
+    showLekSummary(ship);
     return;
   }
   price.textContent = "5 euro";
-  due.textContent = "po llogaritet…";
+  due.textContent = "…";
   try {
     const quote = await loadEurRate();
     if (token !== shipToken || !checkout) return;
-    const goods = roundEur(checkout.subtotal / Number(quote.lekPerEur));
-    const dueEur = roundEur(goods + 5);
-    due.textContent = `${formatEur(dueEur)} euro`;
-    if (note) {
-      note.hidden = false;
-      note.textContent = `${money(checkout.subtotal)} = ${formatEur(goods)} euro, me kursin 1 euro = ${formatEur(quote.lekPerEur)} lek. Transporti 5 euro është brenda totalit.`;
+    const rate = Number(quote.lekPerEur);
+    const goods = roundEur(checkout.subtotal / rate);
+    const lines = moneyLines();
+    let used = 0;
+    lines.forEach((el, index) => {
+      let eur = roundEur(Number(el.dataset.lek) / rate);
+      if (index === lines.length - 1) eur = roundEur(goods - used);
+      else used = roundEur(used + eur);
+      el.textContent = `${formatEur(eur)} euro`;
+    });
+    const oldGoods = roundEur(Number(oldPrice && oldPrice.dataset.lek) / rate);
+    if (oldPrice) {
+      const showOld = oldGoods > goods;
+      oldPrice.hidden = !showOld;
+      if (showOld) oldPrice.textContent = `${formatEur(roundEur(oldGoods + 5))} euro`;
     }
+    due.textContent = `${formatEur(roundEur(goods + 5))} euro`;
+    const summary = document.getElementById("order-summary");
+    if (summary) summary.classList.add("is-eur");
+    pulse(due, "is-price-pop");
     checkout.kosovoReady = true;
   } catch (err) {
     if (token !== shipToken || !checkout) return;
-    due.textContent = money(checkout.subtotal);
-    setPayError(err.message || "Kursi euro nuk u lexua. Provo përsëri.");
+    showLekSummary(null);
+    row.hidden = false;
+    price.textContent = "5 euro";
+    setPayError(err.message || "Çmimi në euro nuk u përgatit. Provo përsëri.");
   }
 }
 
