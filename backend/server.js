@@ -4,7 +4,6 @@ const fs = require("fs");
 const path = require("path");
 
 const PORT = Number(process.env.PORT) || 3000;
-const PAYPAL_LINK = process.env.PAYPAL_LINK || "";
 const frontendDir = path.join(__dirname, "..", "frontend");
 const dataDir = path.join(__dirname, "data");
 const stockFile = path.join(dataDir, "stock.json");
@@ -25,8 +24,8 @@ const PRODUCTS = [
     popularityLabel: "Shumë i popullarizuar",
     popularity:
       "Doli më 2023 dhe u bë shpejt një nga lancimet më të shitura të YSL. E kërkojnë sidomos meshkujt e rinj, si parfum i përditshëm që merr komplimente. Nuk është aq i përhapur sa Sauvage, por është një nga aromat më në modë të viteve të fundit.",
-    price: 5000,
-    oldPrice: 8000,
+    price: 8000,
+    oldPrice: 12000,
     stock: 3,
     image: "/images/myslf.jpg",
   },
@@ -43,8 +42,8 @@ const PRODUCTS = [
     popularityLabel: "Shumë i kërkuar",
     popularity:
       "Linja Born in Roma është ndër më të shiturat e Valentino në Evropë. Versioni Intense ka një ndjekje të fortë te blerësit e rinj, sepse aroma e ëmbël me livando njihet lehtë dhe mbahet shpesh si nënshkrim.",
-    price: 5000,
-    oldPrice: 8000,
+    price: 7500,
+    oldPrice: 11500,
     stock: 3,
     image: "/images/valentino.jpg",
   },
@@ -61,8 +60,8 @@ const PRODUCTS = [
     popularityLabel: "Ndër më të shiturit në botë",
     popularity:
       "Që nga viti 2018 është një nga parfumet më të shitura për burra, krah Sauvage. E njohin pothuajse kudo dhe mbetet zgjedhje e sigurt kur doni një aromë që u pëlqen shumë njerëzve.",
-    price: 5000,
-    oldPrice: 8000,
+    price: 8000,
+    oldPrice: 12000,
     stock: 3,
     image: "/images/ysl-y.jpg",
   },
@@ -79,8 +78,8 @@ const PRODUCTS = [
     popularityLabel: "Jashtëzakonisht i popullarizuar",
     popularity:
       "Doli më 2021 dhe u bë një nga parfumet më të kërkuara të dekadës. Shpesh mbaron në dyqane. Brenda familjes Sauvage, Elixir është versioni më i lavdëruar për forcën dhe qëndrueshmërinë.",
-    price: 5000,
-    oldPrice: 8000,
+    price: 10000,
+    oldPrice: 20000,
     stock: 3,
     image: "/images/sauvage.jpg",
   },
@@ -121,16 +120,6 @@ function writeJson(file, data) {
 
 function readJson(file) {
   return JSON.parse(fs.readFileSync(file, "utf8"));
-}
-
-function safePaypalLink(link) {
-  try {
-    const url = new URL(link);
-    if (url.protocol === "https:") return url.toString();
-  } catch (err) {
-    return "";
-  }
-  return "";
 }
 
 function ensureData() {
@@ -200,9 +189,9 @@ app.get("/api/products", (req, res) => {
 app.post("/api/orders", async (req, res) => {
   try {
     const body = req.body || {};
-    const paymentMethod = body.paymentMethod === "paypal" || body.paymentMethod === "cash" ? body.paymentMethod : "";
+    const paymentMethod = body.paymentMethod === "cash" ? "cash" : "";
     if (!paymentMethod) {
-      return res.status(400).json({ error: "Zgjidhni PayPal ose cash." });
+      return res.status(400).json({ error: "Pagesa bëhet cash, në dorëzim." });
     }
 
     const incoming = Array.isArray(body.items) ? body.items : [];
@@ -304,7 +293,7 @@ app.post("/api/orders", async (req, res) => {
       total,
       paymentMethod,
       customer,
-      status: paymentMethod === "paypal" ? "pret pagesën" : "aktive",
+      status: "aktive",
       createdAt: new Date().toISOString(),
     };
     orders.push(order);
@@ -315,7 +304,6 @@ app.post("/api/orders", async (req, res) => {
       ok: true,
       order: {
         ...order,
-        paypalLink: paymentMethod === "paypal" ? safePaypalLink(PAYPAL_LINK) : "",
       },
     });
   } catch (err) {

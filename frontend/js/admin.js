@@ -109,8 +109,8 @@ function renderOrders(items) {
       ? `${esc(order.customer.name)}<br>${esc(order.customer.phone)}<br>${esc(order.customer.email)}${
         order.customer.country ? `<br>${esc(order.customer.city || "")}, ${esc(order.customer.country)}` : ""
       }${shippingDetail(order)}`
-      : "PayPal, pa të dhëna kontakti";
-    const pay = order.paymentMethod === "cash" ? "Cash · Aktive" : "PayPal";
+      : "Pa të dhëna kontakti";
+    const pay = order.paymentMethod === "cash" ? "Cash · Aktive" : "Cash";
     return `
       <article class="record">
         <div class="record-top">

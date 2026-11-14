@@ -392,13 +392,6 @@ function resolveItems(items) {
 function renderPayPanel() {
   const panel = document.getElementById("pay-panel");
   if (!panel || !checkout) return;
-  if (checkout.method === "paypal") {
-    panel.innerHTML = `
-      <p class="hint">Konfirmoni porosinë me pagesë PayPal.</p>
-      <button type="button" class="btn primary" id="confirm-paypal">Konfirmo me PayPal</button>`;
-    panel.querySelector("#confirm-paypal").addEventListener("click", () => placeOrder("paypal"));
-    return;
-  }
   if (checkout.method === "cash") {
     panel.innerHTML = `
       <form class="cash-form" id="cash-form" novalidate>
@@ -511,40 +504,10 @@ function renderCheckout() {
       </li>
     </ul>
     <p class="hint" id="rate-note" hidden></p>
-    <p class="pay-label">Zgjidhni pagesën</p>
-    <div class="pay-options">
-      <button type="button" class="pay-btn" data-pay="paypal" aria-pressed="false">
-        PayPal
-        <small>Pagesë online</small>
-      </button>
-      <button type="button" class="pay-btn" data-pay="cash" aria-pressed="false">
-        Cash
-        <small>Pagesë me para në dorë</small>
-      </button>
-    </div>
     <div id="pay-panel"></div>
     <p class="form-note err" id="pay-error"></p>`;
 
-  els.checkoutBody.querySelectorAll("[data-pay]").forEach((btn) => {
-    btn.addEventListener("click", () => {
-      checkout.method = btn.dataset.pay;
-      setPayError("");
-      if (checkout.method !== "cash") applyShipping("");
-      els.checkoutBody.querySelectorAll("[data-pay]").forEach((other) => {
-        const selected = other === btn;
-        other.classList.toggle("selected", selected);
-        other.setAttribute("aria-pressed", selected ? "true" : "false");
-      });
-      renderPayPanel();
-    });
-  });
-
-  if (!checkout.method) return;
-  const current = els.checkoutBody.querySelector(`[data-pay="${checkout.method}"]`);
-  if (current) {
-    current.classList.add("selected");
-    current.setAttribute("aria-pressed", "true");
-  }
+  checkout.method = "cash";
   renderPayPanel();
 }
 
@@ -595,20 +558,13 @@ function setPayError(message) {
 }
 
 function showSuccess(order) {
-  const paypal = order.paymentMethod === "paypal";
   els.checkoutTitle.textContent = "Faleminderit";
-  const link = paypal && order.paypalLink
-    ? `<p><a class="btn primary" href="${esc(order.paypalLink)}" target="_blank" rel="noopener">Hap PayPal</a></p>`
-    : "";
-  const place = !paypal && order.customer
+  const place = order.customer
     ? ` Dërgesa: ${esc(order.customer.city || "")}, ${esc(order.customer.country || "")}.`
     : "";
-  const extra = paypal
-    ? "Porosia u regjistrua me PayPal dhe pret pagesën."
-    : `Porosia u aktivizua me cash. Do t'ju kontaktojmë te numri dhe email-i që latë.${place}`;
+  const extra = `Porosia u aktivizua me cash. Do t'ju kontaktojmë te numri dhe email-i që latë.${place}`;
   els.checkoutBody.innerHTML = `
     <p class="prose">${extra}</p>
-    ${link}
     <p>Numri i porosisë<br><strong>${esc(order.id)}</strong></p>
     <p>Totali<br><strong>${esc(orderDue(order))}</strong></p>
     <button type="button" class="btn primary" id="done">Mbyll</button>`;
@@ -669,7 +625,7 @@ function openCheckout(items, source) {
     flash(resolved.error);
     return;
   }
-  checkout = { items, source, method: null };
+  checkout = { items, source, method: "cash" };
   closeCart();
   renderCheckout();
   els.modal.classList.add("open");

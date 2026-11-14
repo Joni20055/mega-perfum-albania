@@ -10,8 +10,8 @@
     "nuance": "Vanilja priret, livandoja e mban aromatike dhe drurët e ngrohin. Është më e ëmbël dhe më e dendur se Born in Roma i zakonshëm, me një ndjenjë kremoze. Del më shumë në mbrëmje dhe në mot të freskët.",
     "popularityLabel": "Shumë i kërkuar",
     "popularity": "Linja Born in Roma është ndër më të shiturat e Valentino në Evropë. Versioni Intense ka një ndjekje të fortë te blerësit e rinj, sepse aroma e ëmbël me livando njihet lehtë dhe mbahet shpesh si nënshkrim.",
-    "price": 5000,
-    "oldPrice": 8000,
+    "price": 7500,
+    "oldPrice": 11500,
     "stock": 3,
     "image": "/images/valentino.jpg?v=2"
   },
@@ -26,8 +26,8 @@
     "nuance": "E freskët dhe aromatike, me një ëmbëlsi të butë. Molla dhe xhenxhefili e bëjnë të ndritshme, sherbelë dhe dëllinja japin anën barishtore, ndërsa tonka dhe cedra e lënë të ngrohtë. Është klasik i llojit blu: i qartë, mashkullor dhe i lehtë për t’u pëlqyer.",
     "popularityLabel": "Ndër më të shiturit në botë",
     "popularity": "Që nga viti 2018 është një nga parfumet më të shitura për burra, krah Sauvage. E njohin pothuajse kudo dhe mbetet zgjedhje e sigurt kur doni një aromë që u pëlqen shumë njerëzve.",
-    "price": 5000,
-    "oldPrice": 8000,
+    "price": 8000,
+    "oldPrice": 12000,
     "stock": 3,
     "image": "/images/ysl-y.jpg?v=2"
   },
@@ -42,8 +42,8 @@
     "nuance": "Agrumi është i thatë, erëzat e mbushin dhe livandoja është e thellë. Baza me jamball, qelibar, sandale dhe vetiver zgjat shumë dhe projekton fort. Ndihet më e rëndë dhe më luksoze se Sauvage i zakonshëm.",
     "popularityLabel": "Jashtëzakonisht i popullarizuar",
     "popularity": "Doli më 2021 dhe u bë një nga parfumet më të kërkuara të dekadës. Shpesh mbaron në dyqane. Brenda familjes Sauvage, Elixir është versioni më i lavdëruar për forcën dhe qëndrueshmërinë.",
-    "price": 5000,
-    "oldPrice": 8000,
+    "price": 10000,
+    "oldPrice": 20000,
     "stock": 3,
     "image": "/images/sauvage.jpg?v=2"
   },
@@ -58,8 +58,8 @@
     "nuance": "Hapja është e ndritshme, me portokall dhe bergamotë. Pastaj del lulja e portokallit, e butë dhe pak e ëmbël, mbi një bazë të pastër me ambroksan, patshuli dhe drurë. Ndihet modern, i pastër dhe i afërt me lëkurën, i përshtatshëm për ditën.",
     "popularityLabel": "Shumë i popullarizuar",
     "popularity": "Doli më 2023 dhe u bë shpejt një nga lancimet më të shitura të YSL. E kërkojnë sidomos meshkujt e rinj, si parfum i përditshëm që merr komplimente. Nuk është aq i përhapur sa Sauvage, por është një nga aromat më në modë të viteve të fundit.",
-    "price": 5000,
-    "oldPrice": 8000,
+    "price": 8000,
+    "oldPrice": 12000,
     "stock": 3,
     "image": "/images/myslf.jpg?v=2"
   }
