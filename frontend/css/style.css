@@ -218,17 +218,25 @@ nav a:hover, #open-cart:hover { color: var(--gold); }
 
 .count.is-bump { animation: bump 0.45s ease; }
 
-.hero { padding: 52px 0 56px; }
+.hero { padding: 0 0 48px; }
 
 .hero-grid {
   display: grid;
-  gap: 36px;
-  align-items: center;
+  gap: 0;
+  align-items: start;
 }
 
-.hero-copy { max-width: 34rem; }
+.hero-copy {
+  max-width: none;
+  padding: 36px 32px 28px 5vw;
+  text-align: left;
+}
 
-.hero .btn.gold { margin-top: 18px; }
+.hero h1 { max-width: 11ch; }
+
+.hero .lede { max-width: 38rem; font-size: 1.16rem; }
+
+.hero .btn.gold { margin-top: 22px; }
 
 .home-notes {
   display: grid;
@@ -278,12 +286,20 @@ nav a:hover, #open-cart:hover { color: var(--gold); }
   line-height: 1.4;
 }
 
-.stage { display: grid; gap: 12px; }
+.stage {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  height: 100%;
+  padding: 28px 5vw 8px 24px;
+}
 
 .stage-frame {
   position: relative;
   display: block;
-  height: 360px;
+  flex: 1;
+  height: auto;
+  min-height: 460px;
   background:
     radial-gradient(circle at 50% 42%, rgba(184, 137, 61, 0.2), transparent 46%),
     var(--white);
@@ -1038,7 +1054,20 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 }
 
 @media (min-width: 900px) {
-  .hero-grid { grid-template-columns: 0.9fr 1.1fr; }
+  .hero-grid {
+    grid-template-columns: minmax(440px, 1.05fr) minmax(0, 0.95fr);
+    align-items: stretch;
+    min-height: calc(100svh - 118px);
+  }
+  .hero-copy {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: flex-start;
+    padding-top: 48px;
+  }
+  .stage { padding-top: 36px; }
+  .stage-frame { min-height: 0; height: 100%; }
 }
 
 @media (min-width: 1080px) {
@@ -1067,7 +1096,10 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 @media (max-width: 699px) {
   .photo { height: 250px; }
   .logo span { font-size: 1.35rem; letter-spacing: 0.08em; }
-  .hero { padding: 36px 0 40px; }
+  .hero { padding: 0 0 32px; }
+  .hero-copy { padding: 28px 20px 8px; }
+  .stage { padding: 8px 16px 0; }
+  .stage-frame { min-height: 320px; }
   .home-notes { margin-top: 28px; }
   .home-notes li { min-height: 0; padding: 18px 16px; }
   .home-notes strong { font-size: 1.45rem; }
