@@ -864,8 +864,47 @@ function startStage() {
   queue();
 }
 
+function startFest() {
+  const root = document.getElementById("fest-stage");
+  if (!root) return;
+  const images = [...root.querySelectorAll("img")];
+  const label = document.getElementById("fest-label");
+  const nights = [...document.querySelectorAll(".nights li")];
+  const slides = [
+    { label: "Valentino · Born in Roma Intense", night: 0 },
+    { label: "Yves Saint Laurent · Y", night: 2 },
+    { label: "Dior · Sauvage Elixir", night: 1 },
+    { label: "Yves Saint Laurent · MYSLF", night: 2 },
+  ];
+  const motion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+  let index = 0;
+  let timer = 0;
+
+  function show(next) {
+    index = next;
+    images.forEach((img, i) => img.classList.toggle("is-on", i === index));
+    const slide = slides[index];
+    if (label) label.textContent = slide.label;
+    nights.forEach((item, i) => item.classList.toggle("is-now", i === slide.night));
+  }
+
+  function queue() {
+    clearInterval(timer);
+    if (motion) return;
+    timer = setInterval(() => show((index + 1) % slides.length), 5200);
+  }
+
+  document.addEventListener("visibilitychange", () => {
+    if (document.hidden) clearInterval(timer);
+    else queue();
+  });
+  show(0);
+  queue();
+}
+
 async function init() {
   startStage();
+  startFest();
   const savedCount = state.cart.reduce((sum, line) => sum + line.qty, 0);
   els.cartCount.textContent = savedCount > 0 ? String(savedCount) : "";
   els.cartCount.classList.toggle("is-live", savedCount > 0);

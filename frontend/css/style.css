@@ -435,9 +435,23 @@ nav a:hover, #open-cart:hover { color: var(--gold); }
   pointer-events: none;
 }
 
-.steps li:nth-child(2) { animation-delay: 0.08s; }
-.steps li:nth-child(3) { animation-delay: 0.16s; }
-.steps li:nth-child(4) { animation-delay: 0.24s; }
+.steps-section .steps li {
+  animation: frame-in 0.7s ease both, step-live 10s ease-in-out infinite;
+}
+
+.steps-section .steps li:nth-child(1) { animation-delay: 0.05s, 0s; }
+.steps-section .steps li:nth-child(2) { animation-delay: 0.16s, 2.5s; }
+.steps-section .steps li:nth-child(3) { animation-delay: 0.28s, 5s; }
+.steps-section .steps li:nth-child(4) { animation-delay: 0.4s, 7.5s; }
+
+@keyframes step-live {
+  0%, 20%, 100% { transform: none; border-color: rgba(27, 58, 47, 0.1); }
+  8% {
+    transform: translateY(-8px);
+    border-color: var(--gold);
+    box-shadow: 0 18px 34px rgba(122, 28, 43, 0.14);
+  }
+}
 
 .steps strong {
   display: block;
@@ -1056,18 +1070,18 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 @media (min-width: 900px) {
   .hero-grid {
     grid-template-columns: minmax(440px, 1.05fr) minmax(0, 0.95fr);
-    align-items: stretch;
-    min-height: calc(100svh - 118px);
+    align-items: center;
+    min-height: 0;
   }
   .hero-copy {
     display: flex;
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
-    padding-top: 48px;
+    padding-top: 72px;
   }
-  .stage { padding-top: 36px; }
-  .stage-frame { min-height: 0; height: 100%; }
+  .stage { padding-top: 28px; justify-content: flex-start; align-items: flex-start; }
+  .stage-frame { flex: none; width: min(420px, 100%); height: 360px; min-height: 360px; max-height: 360px; }
 }
 
 @media (min-width: 1080px) {
@@ -1224,7 +1238,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
   .toast { transition: none; }
-  .steps li, .stage-frame img.is-on, .card::before,
+  .steps li, .steps-section .steps li, .stage-frame img.is-on, .card::before,
   .btn.primary::after, .btn.gold::after, .count.is-live::before,
   #due-price.is-price-pop { animation: none; }
   .stage-frame img, .card, .photo img, .btn, .steps li { transition: none; }
@@ -1256,18 +1270,40 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 }
 
 .campaign-photo {
+  position: relative;
   background: var(--white);
-  min-height: 420px;
-  display: grid;
-  place-items: center;
-  padding: 28px;
+  height: 380px;
+  min-height: 380px;
+  overflow: hidden;
 }
 
 .campaign-photo img {
-  width: min(280px, 100%);
-  height: 360px;
+  position: absolute;
+  inset: 28px 36px 58px;
+  width: calc(100% - 72px);
+  height: calc(100% - 86px);
   object-fit: contain;
+  opacity: 0;
+  transition: opacity 0.8s ease;
 }
+
+.campaign-photo img.is-on { opacity: 1; }
+
+.campaign-label {
+  position: absolute;
+  left: 18px;
+  right: 18px;
+  bottom: 14px;
+  margin: 0;
+  text-align: center;
+  color: var(--pine);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.nights li.is-now strong { color: var(--gold); }
 
 .campaign-copy h2 {
   color: var(--cream);
@@ -1496,8 +1532,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 
   .campaign { padding: 32px 0; }
   .campaign-grid { gap: 22px; }
-  .campaign-photo { min-height: 0; padding: 12px; }
-  .campaign-photo img { height: 220px; }
+  .campaign-photo { height: 280px; min-height: 280px; }
+  .campaign-photo img { height: calc(100% - 78px); }
 
   .gift-grid { grid-template-columns: 1fr; }
   .gift-grid a { min-height: 0; }
