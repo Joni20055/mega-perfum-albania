@@ -232,6 +232,7 @@ function renderProducts() {
         <div class="photo">
           <img src="${esc(product.image)}" alt="${esc(product.brand)} ${esc(product.name)}">
           <span class="stock">${stockLabel(product.stock)}</span>
+          <span class="frame-ice" aria-hidden="true"></span>
         </div>
         <div class="info">
           <div>
