@@ -295,6 +295,7 @@ function addToCart(id, button) {
   saveCart();
   renderCart();
   flash("U shtua në shportë.");
+  if (window.megaFest) window.megaFest.burst(button);
   if (!button) return;
   const previous = button.textContent;
   button.textContent = "U shtua";
@@ -608,6 +609,7 @@ function setPayError(message) {
 }
 
 function showSuccess(order) {
+  if (window.megaFest) window.megaFest.burst();
   els.checkoutTitle.textContent = "Faleminderit";
   const place = order.customer
     ? ` Dërgesa: ${esc(order.customer.city || "")}, ${esc(order.customer.country || "")}.`

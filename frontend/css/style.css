@@ -1,11 +1,11 @@
 :root {
   --ink: #1C2B24;
-  --pine: #1B3A2F;
+  --pine: #1D3C30;
   --berry: #8E3038;
-  --maison: #7A1C2B;
-  --gold: #B8893D;
-  --cream: #F7F3EC;
-  --paper: #FBF8F3;
+  --maison: #74202F;
+  --gold: #C5A15B;
+  --cream: #F8F4ED;
+  --paper: #F8F4ED;
   --white: #FFFFFF;
   --graphite: #3E4A44;
   --muted: rgba(28, 43, 36, 0.72);
@@ -83,7 +83,7 @@ h2 {
 .season-bar {
   position: relative;
   z-index: 32;
-  background: #163228;
+  background: var(--pine);
   color: var(--cream);
   text-align: center;
   padding: 9px 16px;
@@ -1110,9 +1110,9 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
     flex-direction: column;
     align-items: flex-start;
     justify-content: flex-start;
-    padding-top: 108px;
+    padding-top: 184px;
   }
-  .stage { padding-top: 112px; justify-content: flex-start; align-items: flex-start; }
+  .stage { padding-top: 180px; justify-content: flex-start; align-items: flex-start; }
   .stage-frame { flex: none; width: min(420px, 100%); height: 360px; min-height: 360px; max-height: 360px; }
 }
 
@@ -1746,45 +1746,15 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   mask-image: linear-gradient(to bottom, transparent 0 128px, #000 168px);
 }
 
-.snow i {
-  position: absolute;
-  top: -16px;
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #fff;
-  opacity: 0.72;
-  box-shadow: 0 0 8px rgba(255, 255, 255, 0.85);
-  animation: snow-fall linear infinite;
-}
+.snow canvas { display: block; }
 
-.snow i.flake {
-  width: 16px;
-  height: 16px;
-  border-radius: 0;
-  background: center / contain no-repeat url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E%3Cg fill='none' stroke='%23ffffff' stroke-width='1.5' stroke-linecap='round'%3E%3Cpath d='M12 2v20M4.2 6.8l15.6 10.4M19.8 6.8L4.2 17.2'/%3E%3C/g%3E%3C/svg%3E");
-  box-shadow: none;
-  opacity: 0.82;
-}
-
-.snow i:nth-child(1) { left: 4%; animation-duration: 15s; animation-delay: -2s; }
-.snow i:nth-child(2) { left: 12%; animation-duration: 18s; animation-delay: -8s; width: 18px; height: 18px; }
-.snow i:nth-child(3) { left: 20%; animation-duration: 12s; animation-delay: -4s; width: 5px; height: 5px; opacity: 0.5; }
-.snow i:nth-child(4) { left: 28%; animation-duration: 20s; animation-delay: -11s; }
-.snow i:nth-child(5) { left: 36%; animation-duration: 16s; animation-delay: -6s; }
-.snow i:nth-child(6) { left: 44%; animation-duration: 13s; animation-delay: -9s; width: 5px; height: 5px; }
-.snow i:nth-child(7) { left: 52%; animation-duration: 19s; animation-delay: -1s; }
-.snow i:nth-child(8) { left: 60%; animation-duration: 17s; animation-delay: -13s; }
-.snow i:nth-child(9) { left: 68%; animation-duration: 14s; animation-delay: -5s; width: 5px; height: 5px; opacity: 0.45; }
-.snow i:nth-child(10) { left: 74%; animation-duration: 21s; animation-delay: -7s; }
-.snow i:nth-child(11) { left: 82%; animation-duration: 15s; animation-delay: -10s; }
-.snow i:nth-child(12) { left: 88%; animation-duration: 18s; animation-delay: -3s; width: 5px; height: 5px; }
-.snow i:nth-child(13) { left: 94%; animation-duration: 16s; animation-delay: -12s; }
-.snow i:nth-child(14) { left: 48%; animation-duration: 22s; animation-delay: -15s; width: 20px; height: 20px; }
-
-@keyframes snow-fall {
-  0% { transform: translate3d(0, -8vh, 0); }
-  100% { transform: translate3d(28px, 108vh, 0); }
+.fest-burst {
+  position: fixed;
+  inset: 0;
+  z-index: 45;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
 }
 
 .hero { position: relative; }
@@ -1821,28 +1791,33 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 
 .sleigh-lane {
   position: absolute;
-  top: 8px;
+  top: 0;
   left: 0;
   right: 0;
-  height: 100px;
+  height: 168px;
   overflow: hidden;
   pointer-events: none;
   z-index: 2;
 }
 
-.sleigh-run { animation: sleigh-run 28s linear infinite; }
+.sleigh-run {
+  width: 280px;
+  animation: sleigh-pass 46s linear infinite;
+}
 
 .sleigh {
   display: block;
   width: 280px;
-  height: 88px;
-  animation: sleigh-bob 2.6s ease-in-out infinite;
+  height: 168px;
   filter: drop-shadow(0 8px 10px rgba(28, 43, 36, 0.16));
 }
 
-@keyframes sleigh-run {
-  0% { transform: translate3d(-260px, 0, 0); }
-  100% { transform: translate3d(calc(100vw + 40px), 0, 0); }
+.sleigh svg { width: 100%; height: 100%; display: block; }
+
+@keyframes sleigh-pass {
+  0% { transform: translate3d(105vw, 0, 0); }
+  32% { transform: translate3d(-110%, 0, 0); }
+  100% { transform: translate3d(-110%, 0, 0); }
 }
 
 @keyframes sleigh-bob {
@@ -1973,8 +1948,10 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   animation: bulb 1.6s ease-in-out infinite;
 }
 
-.bulb-line i:nth-child(3n) { background: #f3d2d6; animation-delay: 0.35s; }
-.bulb-line i:nth-child(3n + 1) { background: #fff4d2; animation-delay: 0.7s; }
+.bulb-line i:nth-child(4n) { background: #9a303c; }
+.bulb-line i:nth-child(4n + 1) { background: var(--gold); animation-delay: 0.25s; }
+.bulb-line i:nth-child(4n + 2) { background: #3e7a5a; animation-delay: 0.5s; }
+.bulb-line i:nth-child(4n + 3) { background: #fff; animation-delay: 0.75s; }
 
 @keyframes bulb {
   0%, 100% { opacity: 0.45; transform: scale(0.8); }
@@ -2008,15 +1985,22 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   letter-spacing: 0.04em;
 }
 
+.footer-fest .credit {
+  color: rgba(248, 244, 237, 0.55);
+  font-family: Outfit, "Segoe UI", sans-serif;
+  font-size: 0.68rem;
+  letter-spacing: 0.04em;
+}
+
 @media (max-width: 760px) {
-  .snow i:nth-child(n+9) { display: none; }
   .hang-item.b, .hang-item.c { display: none; }
   .hang-item { width: 22px; height: 40px; }
   .hang-item.d { left: auto; right: 16%; }
   .hang-item.e { left: auto; right: 5%; }
-  .sleigh { width: 168px; height: 54px; }
-  .sleigh-lane { height: 58px; }
-  .hero-copy { padding-top: 64px; }
+  .sleigh-lane { height: 108px; }
+  .sleigh-run, .sleigh { width: 176px; }
+  .sleigh { height: 108px; }
+  .hero-copy { padding-top: 112px; }
   .footer-icons { gap: 10px; }
   .footer-icons svg { width: 22px; height: 26px; }
   .footer-fest p { font-size: 1.2rem; }
@@ -2024,7 +2008,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .snow i, .hang-item, .sleigh-run, .sleigh, .sparkles i, .bulb-line i,
+  .snow, .sleigh-lane, .fest-burst { display: none; }
+  .hang-item, .sleigh-run, .sleigh, .sparkles i, .bulb-line i,
   .fireworks i, .confetti i, .drift-flakes i,
   .eyebrow .swing, .eyebrow .flicker, .side-tree, .footer-icons svg:first-child { animation: none; }
   .sleigh-run { transform: translate3d(8vw, 0, 0); }
