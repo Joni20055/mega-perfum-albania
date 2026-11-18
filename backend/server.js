@@ -63,7 +63,7 @@ const PRODUCTS = [
     price: 8000,
     oldPrice: 12000,
     stock: 3,
-    image: "/images/ysl-y.jpg",
+    image: "/images/ysl-y.jpg?v=3",
   },
   {
     id: "dior-sauvage-elixir",
