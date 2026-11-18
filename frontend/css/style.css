@@ -1962,6 +1962,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 
 @media (prefers-reduced-motion: reduce) {
   .snow i, .hang-item, .sleigh-run, .sleigh, .sparkles i, .bulb-line i,
+  .fireworks i, .confetti i,
   .eyebrow .swing, .eyebrow .flicker, .side-tree, .footer-icons svg:first-child { animation: none; }
   .sleigh-run { transform: translate3d(8vw, 0, 0); }
   .env-flap { display: none; }
@@ -1969,4 +1970,87 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   .env-letter, .envelope:hover .env-letter, .envelope.is-open .env-letter { transform: none; }
   .env-gift, .envelope:hover .env-gift, .envelope.is-open .env-gift { position: relative; height: 160px; top: auto; }
   .envelope { height: auto; display: grid; }
+}
+
+.nye-emojis {
+  margin: 0 0 10px;
+  font-size: 1.2rem;
+  letter-spacing: 0.28em;
+}
+
+.season-bar .emo { margin: 0 0.15em; }
+
+.fireworks, .confetti {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+}
+
+.fireworks i {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: #E6D3A1;
+  animation: fw 3.6s ease-out infinite;
+}
+
+.fireworks i:nth-child(1) { top: 16%; left: 8%; }
+.fireworks i:nth-child(2) { top: 22%; right: 12%; animation-delay: -1.1s; }
+.fireworks i:nth-child(3) { top: 62%; left: 6%; animation-delay: -2.1s; }
+.fireworks i:nth-child(4) { bottom: 18%; right: 8%; animation-delay: -0.6s; }
+.fireworks i:nth-child(5) { top: 40%; left: 46%; animation-delay: -2.6s; }
+
+@keyframes fw {
+  0% { opacity: 0; transform: scale(0.2); box-shadow: none; }
+  18% { opacity: 1; }
+  72%, 100% {
+    opacity: 0;
+    transform: scale(1);
+    box-shadow:
+      0 -24px 0 0 #E6D3A1,
+      17px -17px 0 0 #fff,
+      24px 0 0 0 #F3D2D6,
+      17px 17px 0 0 #E6D3A1,
+      0 24px 0 0 #fff,
+      -17px 17px 0 0 #F3D2D6,
+      -24px 0 0 0 #E6D3A1,
+      -17px -17px 0 0 #fff;
+  }
+}
+
+.confetti i {
+  position: absolute;
+  top: -14px;
+  width: 7px;
+  height: 9px;
+  background: #E6D3A1;
+  opacity: 0.85;
+  animation: confetti-fall linear infinite;
+}
+
+.confetti i:nth-child(odd) { background: #F3D2D6; border-radius: 50%; }
+.confetti i:nth-child(3n) { background: #fff; width: 5px; height: 8px; }
+.confetti i:nth-child(1) { left: 6%; animation-duration: 9s; animation-delay: -2s; }
+.confetti i:nth-child(2) { left: 14%; animation-duration: 11s; animation-delay: -6s; }
+.confetti i:nth-child(3) { left: 24%; animation-duration: 8s; animation-delay: -1s; }
+.confetti i:nth-child(4) { left: 33%; animation-duration: 12s; animation-delay: -4s; }
+.confetti i:nth-child(5) { left: 42%; animation-duration: 10s; animation-delay: -8s; }
+.confetti i:nth-child(6) { left: 52%; animation-duration: 9s; animation-delay: -3s; }
+.confetti i:nth-child(7) { left: 61%; animation-duration: 13s; animation-delay: -7s; }
+.confetti i:nth-child(8) { left: 70%; animation-duration: 8.5s; animation-delay: -5s; }
+.confetti i:nth-child(9) { left: 78%; animation-duration: 11s; animation-delay: -2.5s; }
+.confetti i:nth-child(10) { left: 86%; animation-duration: 9.5s; animation-delay: -9s; }
+.confetti i:nth-child(11) { left: 93%; animation-duration: 12s; animation-delay: -1.5s; }
+.confetti i:nth-child(12) { left: 48%; animation-duration: 10.5s; animation-delay: -6.5s; }
+
+@keyframes confetti-fall {
+  0% { transform: translate3d(0, -12px, 0) rotate(0deg); }
+  100% { transform: translate3d(18px, 120%, 0) rotate(200deg); }
+}
+
+@media (max-width: 760px) {
+  .confetti i:nth-child(n+7) { display: none; }
+  .nye-emojis { letter-spacing: 0.16em; font-size: 1.05rem; }
 }
