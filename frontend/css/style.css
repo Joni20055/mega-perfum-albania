@@ -20,8 +20,7 @@ body {
   margin: 0;
   color: var(--ink);
   background:
-    radial-gradient(920px 460px at 0% -8%, rgba(142, 48, 56, 0.09), transparent 58%),
-    radial-gradient(760px 420px at 100% 0%, rgba(27, 58, 47, 0.1), transparent 54%),
+    radial-gradient(860px 420px at 100% -6%, rgba(27, 58, 47, 0.07), transparent 56%),
     var(--paper);
   font-family: Outfit, "Segoe UI", sans-serif;
   font-weight: 400;
@@ -84,11 +83,11 @@ h2 {
 .season-bar {
   position: relative;
   z-index: 32;
-  background: var(--paper);
-  color: var(--maison);
+  background: #163228;
+  color: var(--cream);
   text-align: center;
   padding: 9px 16px;
-  border-bottom: 1px solid rgba(122, 28, 43, 0.12);
+  border-bottom: 1px solid rgba(184, 137, 61, 0.28);
 }
 
 .season-bar p {
@@ -266,7 +265,7 @@ nav a:hover, #open-cart:hover { color: var(--gold); }
 .home-notes b {
   display: block;
   margin-bottom: 10px;
-  color: var(--berry);
+  color: var(--pine);
   font-size: 0.72rem;
   font-weight: 600;
   letter-spacing: 0.16em;
@@ -444,7 +443,7 @@ nav a:hover, #open-cart:hover { color: var(--gold); }
   left: 22px;
   right: 22px;
   height: 2px;
-  background: linear-gradient(90deg, var(--berry), var(--gold));
+  background: var(--pine);
   pointer-events: none;
 }
 
@@ -490,10 +489,7 @@ nav a:hover, #open-cart:hover { color: var(--gold); }
   scroll-margin-top: 96px;
   border-top: 1px solid rgba(27, 58, 47, 0.08);
   border-bottom: 1px solid rgba(27, 58, 47, 0.08);
-  background:
-    radial-gradient(ellipse at 8% 0%, rgba(142, 48, 56, 0.08), transparent 42%),
-    radial-gradient(ellipse at 100% 100%, rgba(27, 58, 47, 0.08), transparent 46%),
-    #F4EFE6;
+  background: #F3EFE6;
 }
 
 .steps-layout { display: grid; gap: 40px; width: 100%; }
@@ -554,6 +550,27 @@ nav a:hover, #open-cart:hover { color: var(--gold); }
 .btn.gold:hover { background: color-mix(in srgb, var(--gold) 78%, var(--cream)); }
 
 .section { padding: 72px 0 80px; }
+
+#festat {
+  background: var(--pine);
+  color: var(--cream);
+  padding: 84px 0 92px;
+}
+
+#festat h2 {
+  color: var(--cream);
+  font-size: clamp(3.2rem, 6vw, 5rem);
+  line-height: 0.92;
+  margin: 0;
+}
+
+#festat .band-head { margin-bottom: 34px; }
+
+#festat .envelope {
+  background: #fffdf9;
+  border-color: rgba(247, 243, 236, 0.28);
+  box-shadow: 0 18px 36px rgba(0, 0, 0, 0.22);
+}
 
 .eyebrow {
   margin: 0 0 8px;
@@ -1552,7 +1569,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
 .faq summary::-webkit-details-marker { display: none; }
 
 .faq summary b {
-  color: var(--maison);
+  color: var(--pine);
   font-size: 0.75rem;
   letter-spacing: 0.14em;
 }
@@ -1660,6 +1677,8 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   .home-notes span { font-size: 0.82rem; }
 
   .section { padding: 36px 0 42px; }
+  #festat { padding: 48px 0 56px; }
+  #festat h2 { font-size: 2.7rem; }
   .steps-section { padding: 36px 0 42px; }
   .steps-section h2,
   .campaign-copy h2 { font-size: 2.45rem; }
