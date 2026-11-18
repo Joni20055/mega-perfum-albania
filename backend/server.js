@@ -404,6 +404,11 @@ app.use("/api", (req, res) => {
 
 app.use(express.static(frontendDir));
 
+app.use((req, res) => {
+  res.set("Cache-Control", "no-store");
+  res.status(404).send("Nuk u gjet.");
+});
+
 app.use((err, req, res, next) => {
   console.error(err);
   res.status(400).json({ error: "Kërkesa nuk u lexua." });
