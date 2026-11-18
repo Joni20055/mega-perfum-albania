@@ -1611,7 +1611,7 @@ button:focus-visible, a:focus-visible, input:focus-visible, textarea:focus-visib
   .faq details p { margin-left: 0; }
 }
 
-#produkte, #kontakt, #festat, #dhurata, #pyetje { scroll-margin-top: 96px; }
+#produkte, #kontakt, #festat, #pyetje { scroll-margin-top: 96px; }
 #si-porositet { scroll-margin-top: 96px; }
 
 @media (max-width: 760px) {
