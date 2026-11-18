@@ -902,9 +902,23 @@ function startFest() {
   queue();
 }
 
+function startEnvelopes() {
+  const cards = [...document.querySelectorAll(".envelope")];
+  cards.forEach((card) => {
+    const seal = card.querySelector(".env-seal");
+    if (!seal) return;
+    seal.addEventListener("click", () => {
+      const open = card.classList.contains("is-open");
+      cards.forEach((other) => other.classList.remove("is-open"));
+      if (!open) card.classList.add("is-open");
+    });
+  });
+}
+
 async function init() {
   startStage();
   startFest();
+  startEnvelopes();
   const savedCount = state.cart.reduce((sum, line) => sum + line.qty, 0);
   els.cartCount.textContent = savedCount > 0 ? String(savedCount) : "";
   els.cartCount.classList.toggle("is-live", savedCount > 0);
